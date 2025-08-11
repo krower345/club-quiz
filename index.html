@@ -127,68 +127,86 @@
 <script>
 const nyuQuizData = [
   {
-    q: "You’ve just arrived in New York City for your first semester at NYU. What’s your first move?",
+    q: "You’ve just arrived in New York City for your first week of college. Where is your first stop on NYU’s campus?",
     a: [
-      { text: "Explore Greenwich Village and find a local coffee shop", type: "Artist" },
-      { text: "Check out the university clubs and organizations fair", type: "Leader" },
-      { text: "Head straight to the library to get ahead on readings", type: "Scholar" },
-      { text: "Meet up with your new roommates to plan a city adventure", type: "Connector" },
+      { text: "The Gallatin Galleries for some artistic inspiration ", type: "Fine Arts Society" },
+      { text: "Bobst Library for peace and quiet before NYU Welcome", type: "Generation Meditation" },
+      { text: "Cafe 181 in the Paulson Center for an iced coffee and a snack", type: "Cheese Club" },
+      { text: "Kimmel Center for University Life for a view of Washington Square Park and some unbeatable people watching", type: "Future Fashion Group" },
     ]
   },
   {
-    q: "What’s your ideal Saturday in NYC?",
+    q: "If you could have lunch with any NYU alum, who would it be?",
     a: [
-      { text: "Museum hopping and sketching in Central Park", type: "Artist" },
-      { text: "Organizing a volunteer event for your club", type: "Leader" },
-      { text: "Attending a lecture or book signing", type: "Scholar" },
-      { text: "Trying a new food spot with friends", type: "Connector" },
+      { text: "Painter and performance artist Arleen Schloss to discuss the state of New York City’s art scene", type: "Fine Arts Society" },
+      { text: "Singer-songwriter Maggie Rogers for playlist recommendations and wisdom from last year’s Tisch graduation speaker", type: "Generation Meditation" },
+      { text: "Celebrity chef Edward Lee to get his advice on must-try restaurants", type: "Cheese Club" },
+      { text: "Fashion designer Tom Ford for a lesson in personal style and capsule wardrobes", type: "Future Fashion Group" },
     ]
   },
   {
-    q: "Which NYU spot are you most likely to call your second home?",
+    q: "When you weren’t packing for NYU, how did you spend your summer?",
     a: [
-      { text: "The studios at Tisch", type: "Artist" },
-      { text: "Kimmel Center for Student Life", type: "Leader" },
-      { text: "Bobst Library", type: "Scholar" },
-      { text: "Washington Square Park", type: "Connector" },
+      { text: "Traveling — before settling into dorm life, I explored new places", type: "Fine Arts Society" },
+      { text: "Reading — I caught up on celebrities’ book lists and escaped to fantasy worlds", type: "Generation Meditation" },
+      { text: "Cooking — I found the best dorm room recipes and prepared my Sidestein grocery list", type: "Cheese Club" },
+      { text: "Shopping — I curated my perfect back-to-school wardrobe (and it does not include that bright purple lanyard)", type: "Future Fashion Group" },
     ]
   },
   {
-    q: "How do you handle a group project?",
+    q: "You’re preparing for your first week of classes at NYU, what’s your schedule like?",
     a: [
-      { text: "Design the presentation and make it stand out", type: "Artist" },
-      { text: "Take charge and coordinate everyone’s roles", type: "Leader" },
-      { text: "Research thoroughly and make sure all facts are correct", type: "Scholar" },
-      { text: "Keep the group motivated and make sure everyone feels included", type: "Connector" },
+      { text: "I’m only taking classes in the morning — that way my afternoons are free to explore the city", type: "Fine Arts Society" },
+      { text: "I’ve loaded up on classes from Monday to Thursday to allow for a three-day weekend", type: "Generation Meditation" },
+      { text: "I have a class in the morning and a class in the afternoon most days, with just enough time for a lunch break at Upstein or Crave NYU in between", type: "Cheese Club" },
+      { text: "I’m a night owl and love to sleep in, all my classes are as late in the day as possible", type: "Future Fashion Group" },
     ]
   },
   {
-    q: "Pick a motto:",
+    q: "Looking ahead — if you could study abroad at any of NYU’s 16 study away locations, where would you go?",
     a: [
-      { text: "\"Create boldly.\"", type: "Artist" },
-      { text: "\"Lead the way.\"", type: "Leader" },
-      { text: "\"Knowledge is power.\"", type: "Scholar" },
-      { text: "\"Together we thrive.\"", type: "Connector" },
+      { text: "Florence — I can take classes at the beautiful Villa La Pietra and drink spritzes every day", type: "Fine Arts Society" },
+      { text: "Buenos Aires — the metropolitan city is a short flight from Iguazu Falls, a UNESCO World Heritage site on the border of Argentina and Brazil", type: "Generation Meditation" },
+      { text: "Paris — there’s no limit of sites to see, museums to peruse, restaurants to try and French people to annoy with your American customs", type: "Cheese Club" },
+      { text: "London — it’s the birthplace of legendary culture icons and one of two study away sites where NYU has an exclusive global fashion program", type: "Future Fashion Group" },
+    ]
+  },
+  {
+    q: "If you were a Manhattan neighborhood, which one would you be?",
+    a: [
+      { text: "Chelsea — it has a vast art scene and offers unique architectural sites like the High Line", type: "Fine Arts Society" },
+      { text: "East Village — matcha, yoga and Tompkins Square Park add up to offer the perfect neighborhood to relax and catch up with friends", type: "Generation Meditation" },
+      { text: "West Village — NYU’s beloved neighborhood with a vibrant LGBTQ+ history and picturesque brownstones", type: "Cheese Club" },
+      { text: "SoHo — effectively Manhattan’s shopping mall with staple clothing stores, unique local boutiques and constantly rotating pop-ups", type: "Future Fashion Group" }, 
+    ]
+  },
+  {
+    q: "Last question — class was canceled and you have a free afternoon, what are you doing?",
+    a: [
+      { text: "Finding a creative outlet to unplug and recharge", type: "Fine Arts Society" },
+      { text: "Taking some time for some mindfulness through meditation", type: "Generation Meditation" },
+      { text: "Trying a new restaurant and walking around a new neighborhood", type: "Cheese Club" },
+      { text: "Going to a sample sale for deals on new products from designer labels", type: "Future Fashion Group" }, 
     ]
   }
 ];
 
 const nyuQuizResults = {
-  "Artist": {
-    title: "The NYU Artist",
-    desc: "You see the world as your canvas. You thrive in creative spaces and bring imagination to every corner of NYU. Tisch, galleries, and street art all call your name!"
+  "Fine Arts Society": {
+    title: "Fine Arts Society",
+    desc: "You love expressing yourself creatively, and the Fine Arts Society will allow you to take advantage of all the art museums New York has to offer while also meeting some like-minded individuals. Attend a monthly outing to a new exhibit or join the club for a monthly artistic activity."
   },
-  "Leader": {
-    title: "The NYU Leader",
-    desc: "You take initiative, organize, and inspire. Whether running a club or leading a project, you make things happen and help others shine. The world is your stage!"
+  "Generation Meditation": {
+    title: "Generation Meditation",
+    desc: "After a busy week of classes and other side hustles, you crave an activity that will rejuvenate you and keep you in check with your feelings and emotions. Generation Meditation invites students to sit for a meditation every week."
   },
-  "Scholar": {
-    title: "The NYU Scholar",
-    desc: "Curious and driven, you love to learn and share knowledge. Libraries, lectures, and late-night study sessions bring you joy. NYU is your intellectual playground!"
+  "Cheese Club": {
+    title: "Cheese Club",
+    desc: "As a lover of New York culture and all things food, you’ll get the best restaurants and of course, cheese recommendations, from the members of the Cheese Club. They do monthly themed cheese tastings on campus, like “Cheese Around the World” or Halloween-themed “Night of the Living Chedd.”"
   },
-  "Connector": {
-    title: "The NYU Connector",
-    desc: "You bring people together and build community. From park hangouts to group chats, you’re the glue that keeps NYU’s vibrant network strong and welcoming."
+  "Future Fashion Group": {
+    title: "Future Fashion Group",
+    desc: "You identify as a fashionista and crave a space where you can cultivate your new personal style. Future Fashion Group is a sustainability-focused fashion club that meets periodically throughout the semester and does events with sustainable fashion initiatives like Depop and Arête. If you’re interested in joining a publication besides WSN, Future Fashion Group also has a semesterly magazine."
   }
 };
 
