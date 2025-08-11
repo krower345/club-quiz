@@ -61,17 +61,15 @@
       font-family: 'Cal Sans', sans-serif;
       font-weight: 400;
     }
-    .nyu-quiz-options input[type="radio"]:checked + span {
-      color: #8000ff;
-      font-weight: 600;
-    }
-    .nyu-quiz-options input[type="radio"]:checked ~ label {
-      border: 2px solid #8000ff;
-      background: #e8d7fb;
-    }
     .nyu-quiz-options input[type="radio"] {
       accent-color: #8000ff;
       margin-right: 10px;
+    }
+    .nyu-quiz-options label.selected {
+      border: 2px solid #8000ff;
+      background: #e8d7fb;
+      color: #8000ff;
+      font-weight: 600;
     }
     .nyu-quiz-options label:hover {
       border: 2px solid #c299fc;
@@ -91,4 +89,196 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
-      font-family:
+      font-family: 'Cal Sans', sans-serif;
+    }
+    .nyu-quiz-btn:disabled {
+      background: #c9b8e6;
+      cursor: not-allowed;
+    }
+    #nyu-quiz-result {
+      text-align: center;
+      padding: 24px;
+      font-family: 'Cal Sans', sans-serif;
+    }
+    .nyu-quiz-title {
+      margin: 0 0 12px 0;
+      color: #8000ff;
+      font-size: 1.7em;
+      font-weight: 700;
+      font-family: 'Cal Sans', sans-serif;
+    }
+    @media (max-width: 500px) {
+      #nyu-quiz-container {
+        max-width: 100vw;
+        margin: 0;
+        border-radius: 0;
+      }
+      #nyu-quiz-card {
+        padding: 18px 5vw 18px 5vw;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="nyu-quiz-container">
+  <div id="nyu-quiz-progress"><div id="nyu-quiz-progress-bar"></div></div>
+  <div id="nyu-quiz-card"></div>
+</div>
+<script>
+const nyuQuizData = [
+  {
+    q: "You’ve just arrived in New York City for your first semester at NYU. What’s your first move?",
+    a: [
+      { text: "Explore Greenwich Village and find a local coffee shop", type: "Artist" },
+      { text: "Check out the university clubs and organizations fair", type: "Leader" },
+      { text: "Head straight to the library to get ahead on readings", type: "Scholar" },
+      { text: "Meet up with your new roommates to plan a city adventure", type: "Connector" },
+    ]
+  },
+  {
+    q: "What’s your ideal Saturday in NYC?",
+    a: [
+      { text: "Museum hopping and sketching in Central Park", type: "Artist" },
+      { text: "Organizing a volunteer event for your club", type: "Leader" },
+      { text: "Attending a lecture or book signing", type: "Scholar" },
+      { text: "Trying a new food spot with friends", type: "Connector" },
+    ]
+  },
+  {
+    q: "Which NYU spot are you most likely to call your second home?",
+    a: [
+      { text: "The studios at Tisch", type: "Artist" },
+      { text: "Kimmel Center for Student Life", type: "Leader" },
+      { text: "Bobst Library", type: "Scholar" },
+      { text: "Washington Square Park", type: "Connector" },
+    ]
+  },
+  {
+    q: "How do you handle a group project?",
+    a: [
+      { text: "Design the presentation and make it stand out", type: "Artist" },
+      { text: "Take charge and coordinate everyone’s roles", type: "Leader" },
+      { text: "Research thoroughly and make sure all facts are correct", type: "Scholar" },
+      { text: "Keep the group motivated and make sure everyone feels included", type: "Connector" },
+    ]
+  },
+  {
+    q: "Pick a motto:",
+    a: [
+      { text: "\"Create boldly.\"", type: "Artist" },
+      { text: "\"Lead the way.\"", type: "Leader" },
+      { text: "\"Knowledge is power.\"", type: "Scholar" },
+      { text: "\"Together we thrive.\"", type: "Connector" },
+    ]
+  }
+];
+
+const nyuQuizResults = {
+  "Artist": {
+    title: "The NYU Artist",
+    desc: "You see the world as your canvas. You thrive in creative spaces and bring imagination to every corner of NYU. Tisch, galleries, and street art all call your name!"
+  },
+  "Leader": {
+    title: "The NYU Leader",
+    desc: "You take initiative, organize, and inspire. Whether running a club or leading a project, you make things happen and help others shine. The world is your stage!"
+  },
+  "Scholar": {
+    title: "The NYU Scholar",
+    desc: "Curious and driven, you love to learn and share knowledge. Libraries, lectures, and late-night study sessions bring you joy. NYU is your intellectual playground!"
+  },
+  "Connector": {
+    title: "The NYU Connector",
+    desc: "You bring people together and build community. From park hangouts to group chats, you’re the glue that keeps NYU’s vibrant network strong and welcoming."
+  }
+};
+
+let currentQ = 0;
+let answers = [];
+
+function renderQuiz() {
+  // Progress bar
+  document.getElementById("nyu-quiz-progress-bar").style.width =
+    ((currentQ) / nyuQuizData.length) * 100 + "%";
+
+  // Card content
+  const card = document.getElementById("nyu-quiz-card");
+  if (currentQ >= nyuQuizData.length) {
+    showResult();
+    return;
+  }
+  const q = nyuQuizData[currentQ];
+  let html = `<div class="nyu-quiz-question">${q.q}</div>
+  <form id="nyu-quiz-form" class="nyu-quiz-options">`;
+  q.a.forEach((opt, i) => {
+    html += `
+    <label${answers[currentQ] === i ? ' class="selected"' : ''}>
+      <input type="radio" name="option" value="${i}"${answers[currentQ] === i ? ' checked' : ''} required>
+      <span>${opt.text}</span>
+    </label>`;
+  });
+  html += `</form>
+  <div class="nyu-quiz-nav">
+    <button class="nyu-quiz-btn" ${currentQ === 0 ? "disabled" : ""} id="nyu-quiz-prev">Back</button>
+    <button class="nyu-quiz-btn" id="nyu-quiz-next" disabled>Next</button>
+  </div>
+  `;
+  card.innerHTML = html;
+
+  // Enable next if already answered
+  if (typeof answers[currentQ] === 'number') {
+    document.getElementById("nyu-quiz-next").disabled = false;
+  }
+
+  // Handle selection
+  document.querySelectorAll('input[name="option"]').forEach((radio, idx) => {
+    radio.addEventListener('change', function() {
+      answers[currentQ] = idx;
+      renderQuiz();
+    });
+  });
+
+  // Navigation
+  document.getElementById("nyu-quiz-prev").onclick = function() {
+    if (currentQ > 0) {
+      currentQ--;
+      renderQuiz();
+    }
+  };
+  document.getElementById("nyu-quiz-next").onclick = function() {
+    if (typeof answers[currentQ] === 'number') {
+      currentQ++;
+      renderQuiz();
+    }
+  };
+}
+
+function showResult() {
+  // Tally results
+  const tally = {};
+  answers.forEach((ans, idx) => {
+    const type = nyuQuizData[idx].a[ans].type;
+    tally[type] = (tally[type] || 0) + 1;
+  });
+  // Get most common type
+  let topType = Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+  let result = nyuQuizResults[topType];
+  document.getElementById("nyu-quiz-progress-bar").style.width = "100%";
+  document.getElementById("nyu-quiz-card").innerHTML = `
+    <div id="nyu-quiz-result">
+      <div class="nyu-quiz-title">${result.title}</div>
+      <div>${result.desc}</div>
+      <br>
+      <button class="nyu-quiz-btn" id="nyu-quiz-restart">Restart Quiz</button>
+    </div>
+  `;
+  document.getElementById("nyu-quiz-restart").onclick = function() {
+    currentQ = 0;
+    answers = [];
+    renderQuiz();
+  }
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
